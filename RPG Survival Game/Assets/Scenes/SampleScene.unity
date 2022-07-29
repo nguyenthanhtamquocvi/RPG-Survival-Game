@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.6
-  item: {fileID: 11400000, guid: b26e4e8399b030a48902b5c078582d17, type: 2}
+  weaponItem: {fileID: 11400000, guid: b26e4e8399b030a48902b5c078582d17, type: 2}
 --- !u!135 &20322864
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1643,7 +1643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rightWeapon: {fileID: 11400000, guid: 7647905ee6e294e4190e18fb39b3eb26, type: 2}
-  unarmedWeapon: {fileID: 11400000, guid: 4a997bec8eec521428c722ba3a4c89c1, type: 2}
+  unarmedWeapon: {fileID: 11400000, guid: 7647905ee6e294e4190e18fb39b3eb26, type: 2}
   weaponInRightHandSlots: []
   inventory: []
   boxDropTransform: {fileID: 378527695}

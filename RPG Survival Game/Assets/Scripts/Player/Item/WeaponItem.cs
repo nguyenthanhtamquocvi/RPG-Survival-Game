@@ -13,9 +13,6 @@ public class WeaponItem : Item
     [Header("Weapon Attack Animation")]
     public string attack1;
     public string attack2;
-    public string attack3;
-    public string attack4;
-
 
     public override void Use()
     {

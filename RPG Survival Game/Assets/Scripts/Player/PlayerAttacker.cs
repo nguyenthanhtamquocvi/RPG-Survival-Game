@@ -12,16 +12,6 @@ public class PlayerAttacker : MonoBehaviour
             AnimationHandler.instance.PlayTargetAnimation(weaponItem.attack2, true);
             lastAttack = weaponItem.attack2;
         }
-        else if (lastAttack == weaponItem.attack2)
-        {
-            AnimationHandler.instance.PlayTargetAnimation(weaponItem.attack3, true);
-            lastAttack = weaponItem.attack3;
-        }
-        else if (lastAttack == weaponItem.attack3)
-        {
-            AnimationHandler.instance.PlayTargetAnimation(weaponItem.attack4, true);
-            lastAttack = weaponItem.attack4;
-        }
 
     }
 

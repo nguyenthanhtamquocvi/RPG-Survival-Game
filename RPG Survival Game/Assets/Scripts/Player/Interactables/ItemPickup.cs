@@ -4,7 +4,7 @@ public class ItemPickup : Interactable
 {
 
     [SerializeField]
-    public WeaponItem item;
+    public WeaponItem weaponItem;
 
     public override void Interact(PlayerManger playerManger)
     {
@@ -22,7 +22,7 @@ public class ItemPickup : Interactable
 
         playerLocomotion.rigidbody.velocity = Vector3.zero;
         animationHandler.PlayTargetAnimation("Pickup", true);
-        PlayerInventory.instance.Equip(item);
+        PlayerInventory.instance.Equip(weaponItem);
         Destroy(gameObject);
     }
 }

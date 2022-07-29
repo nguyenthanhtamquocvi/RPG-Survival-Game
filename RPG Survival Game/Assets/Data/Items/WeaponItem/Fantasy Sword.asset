@@ -18,7 +18,5 @@ MonoBehaviour:
   modelPrefab: {fileID: 5843967054900393876, guid: 9a1641996ce71634b93989afb8f56def, type: 3}
   isUnarmed: 0
   armIdle: Arm_Idle
-  attack1: Warrior_Skill03_Demo
+  attack1: Sword_Attack_1
   attack2: Sword_Attack_2
-  attack3: Sword_Attack_3
-  attack4: Sword_Attack_4

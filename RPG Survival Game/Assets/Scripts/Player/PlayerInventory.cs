@@ -47,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
         if (weaponInRightHandSlots[slotIndex] != null)
         {
             oldItem = weaponInRightHandSlots[slotIndex];
-            DropItem(oldItem);
+            inventory.Add(oldItem);
         }
         weaponInRightHandSlots[slotIndex] = weaponItem;
         weaponSlotManager.LoadWeaponOnSlot(weaponInRightHandSlots[slotIndex]);
