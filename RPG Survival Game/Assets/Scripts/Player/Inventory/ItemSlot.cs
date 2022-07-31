@@ -2,21 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct ItemSlot
+namespace Items
 {
-    public InventoryItem item;
-
-    public int quantity;
-
-    public ItemSlot(InventoryItem item, int quantity)
+    [SerializeField]
+    public struct ItemSlot
     {
-        this.item = item;
-        this.quantity = quantity;
+        public InventoryItem item;
+
+        public int quantity;
+
+        public ItemSlot(InventoryItem item, int quantity)
+        {
+            this.item = item;
+            this.quantity = quantity;
+        }
+
+        public static bool operator ==(ItemSlot a, ItemSlot b)
+        { return a.Equals(b); }
+
+        public static bool operator !=(ItemSlot a, ItemSlot b)
+        { return !a.Equals(b); }
     }
-
-    public static bool operator ==(ItemSlot a, ItemSlot b)
-    { return a.Equals(b); }
-
-    public static bool operator !=(ItemSlot !a, ItemSlot b)
-    { return a.Equals(b); }
 }

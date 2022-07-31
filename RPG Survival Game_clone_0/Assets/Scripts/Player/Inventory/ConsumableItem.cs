@@ -1,22 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
-public class ConsumableItem : InventoryItem
+namespace Items
 {
-    [Header("Consumable Data")]
-    [SerializeField] private string useText = "Does something, maybe?";
-
-    public override string GetInfoDisplayText()
+    [CreateAssetMenu(fileName = "New Consumable Item", menuName = "Items/Consumable Item")]
+    public class ConsumableItem : InventoryItem
     {
-        StringBuilder builder = new StringBuilder();
+        [Header("Consumable Data")]
+        [SerializeField] private string useText = "Does something, maybe?";
 
-        builder.Append(Name).AppendLine();
-        builder.Append("<color=green>Use:").Append(useText).Append("</color>").AppendLine();
-        builder.Append("Max Stack: ").Append(MaxStack).AppendLine();
-        builder.Append("Sell Price: ").Append(SellPrice).Append(" Gold");
+        public override string GetInfoDisplayText()
+        {
+            StringBuilder builder = new StringBuilder();
 
-        return builder.ToString();
+            builder.Append(Name).AppendLine();
+            builder.Append("<color=green>Use:").Append(useText).Append("</color>").AppendLine();
+            builder.Append("Max Stack: ").Append(MaxStack).AppendLine();
+            builder.Append("Sell Price: ").Append(SellPrice).Append(" Gold");
+
+            return builder.ToString();
+        }
     }
 }

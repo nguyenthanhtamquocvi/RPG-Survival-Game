@@ -1,21 +1,24 @@
 using UnityEngine;
 
-public abstract class InventoryItem : HotbarItem
+namespace Items
 {
-    [Header("Item Data")]
-    [Min(0)] private int sellPrice = 1;
-
-    [Min(1)] private int maxStack = 1;
-
-    public override string ColouredName
+    public abstract class InventoryItem : HotbarItem
     {
-        get
+        [Header("Item Data")]
+        [Min(0)] private int sellPrice = 1;
+
+        [Min(1)] private int maxStack = 1;
+
+        public override string ColouredName
         {
-            return Name;
+            get
+            {
+                return Name;
+            }
         }
+
+        public int SellPrice => sellPrice;
+
+        public int MaxStack => maxStack;
     }
-
-    public int SellPrice => sellPrice;
-
-    public int MaxStack => maxStack;
 }

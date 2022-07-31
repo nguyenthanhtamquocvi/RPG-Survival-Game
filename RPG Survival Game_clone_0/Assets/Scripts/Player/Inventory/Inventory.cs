@@ -1,160 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Events;
 using UnityEngine;
 
-public class Inventory : ScriptableObject, IItemContainer
+namespace Items
 {
-    private ItemSlot[] itemSlots = new ItemSlot[20];
-
-    public Action OnIteamUpdated = delegate { };
-
-    public ItemSlot AddItem(ItemSlot itemSlot)
+    [CreateAssetMenu(fileName = "New Inventory", menuName = "Items/Inventory")]
+    public class Inventory : ScriptableObject
     {
-        for (int i = 0; i < itemSlots.Length; i++)
+        [SerializeField] private VoidEvent onInventoryItemUpdated = null;
+
+        [SerializeField] private ItemSlot testItemSlot = new ItemSlot();
+
+        public ItemContainer ItemContainer { get; } = new ItemContainer(20);
+
+        public void OnEnable() => ItemContainer.OnIteamUpdated += onInventoryItemUpdated.Raise;
+
+        public void OnDisable() => ItemContainer.OnIteamUpdated -= onInventoryItemUpdated.Raise;
+
+        [ContextMenu("Test Add")]
+        public void TestAdd()
         {
-            if (itemSlots[i].item != null)
-            {
-                if (itemSlots[i].item == itemSlot.item)
-                {
-                    int slotRemainingSpace = itemSlots[i].item.MaxStack - itemSlots[i].quantity;
-
-                    if (itemSlot.quantity <= slotRemainingSpace)
-                    {
-                        itemSlots[i].quantity += itemSlot.quantity;
-
-                        itemSlot.quantity = 0;
-
-                        OnIteamUpdated.Invoke();
-
-                        return itemSlot;
-                    }
-                    else if (slotRemainingSpace > 0)
-                    {
-                        itemSlots[i].quantity += slotRemainingSpace;
-
-                        itemSlot.quantity -= slotRemainingSpace;
-                    }
-                }
-            }
+            ItemContainer.AddItem(testItemSlot);
         }
-
-        for (int i = 0; i < itemSlots.Length; i++)
-        {
-            if (itemSlots[i].item == null)
-            {
-                if (itemSlot.quantity <= itemSlot.item.MaxStack)
-                {
-                    itemSlots[i] = itemSlot;
-
-                    itemSlot.quantity = 0;
-                    OnIteamUpdated.Invoke();
-                    return itemSlot;
-                }
-                else
-                {
-                    itemSlots[i] = new ItemSlot(itemSlot.item, itemSlot.item.MaxStack);
-
-                    itemSlot.quantity -= itemSlot.item.MaxStack;
-                }
-            }
-        }
-        OnIteamUpdated.Invoke();
-        return itemSlot;
-    }
-
-    public int GetTotalQuanlity(InventoryItem item)
-    {
-        int totalCount = 0;
-
-        foreach (ItemSlot itemSlot in itemSlots)
-        {
-            if (itemSlot.item == null) { continue; }
-            if (itemSlot.item != item) { continue; }
-
-            totalCount += itemSlot.quantity;
-        }
-
-        return totalCount;
-    }
-
-    public bool HasItem(InventoryItem item)
-    {
-        foreach (ItemSlot itemSlot in itemSlots)
-        {
-            if (itemSlot.item == null) { continue; }
-            if (itemSlot.item != item) { continue; }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    public void RemoveAt(int slotIndex)
-    {
-        if (slotIndex < 0 || slotIndex > itemSlots.Length - 1) { return; }
-        itemSlots[slotIndex] = new ItemSlot();
-        OnIteamUpdated.Invoke();
-    }
-
-    public void RemoveItem(ItemSlot itemSlot)
-    {
-        for (int i = 0; i < itemSlots.Length; i++)
-        {
-            if (itemSlots[i].item != null)
-            {
-                if (itemSlots[i].item == itemSlot.item)
-                {
-                    if (itemSlots[i].quantity < itemSlot.quantity)
-                    {
-                        itemSlot.quantity -= itemSlots[i].quantity;
-
-                        itemSlots[i] = new ItemSlot();
-                    }
-                    else
-                    {
-                        itemSlots[i].quantity -= itemSlot.quantity;
-
-                        if (itemSlots[i].quantity == 0)
-                        {
-                            itemSlots[i] = new ItemSlot();
-                            OnIteamUpdated.Invoke();
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public void Swap(int indexOne, int indexTwo)
-    {
-        ItemSlot firstSlot = itemSlots[indexOne];
-        ItemSlot secondSlot = itemSlots[indexTwo];
-
-        if (firstSlot == secondSlot) { return; }
-
-        if (secondSlot.item != null)
-        {
-            if (firstSlot.item == secondSlot.item)
-            {
-                int secondSlotRemainingSpace = secondSlot.item.MaxStack - secondSlot.quantity;
-
-                if (firstSlot.quantity <= secondSlotRemainingSpace)
-                {
-                    itemSlots[indexTwo].quantity += firstSlot.quantity;
-
-                    itemSlots[indexOne] = new ItemSlot();
-                    OnIteamUpdated.Invoke();
-                    return;
-                }
-            }
-        }
-
-        itemSlots[indexOne] = secondSlot;
-        itemSlots[indexTwo] = firstSlot;
-
-        OnIteamUpdated.Invoke();
     }
 }
